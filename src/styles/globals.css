@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body,
+#root,
+#root > div {
+  height: 100%;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  @apply text-gray-900;
+}
+
+.btn {
+  @apply inline-flex bg-blue-600 hover:bg-blue-700 justify-center px-6 py-3 text-white appearance-none rounded items-center font-medium text-base outline-none;
+}
+
+.btn-outline {
+  @apply border border-blue-600 hover:border-blue-700 hover:text-blue-700 justify-center px-4 py-2 text-blue-600 appearance-none rounded items-center font-medium text-sm outline-none;
+}
+
+.min-w-240px {
+  min-width: 240px;
+}
+
+a {
+  @apply text-blue-500;
+}
