@@ -11,7 +11,7 @@ const Header = ({ user }) => {
       <div className="flex justify-between w-0 flex-1">
         <Link href="/">
           <a>
-            <Image className="w-auto" height={40} width={40} src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg" alt="" />
+            <Image className="w-auto" height={40} width={128} src="/images/inmeet.png" alt="" objectFit='contain' />
           </a>
         </Link>
       </div>
@@ -69,6 +69,16 @@ const Header = ({ user }) => {
                     className='block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-t border-gray-200'
                   >
                     Edit Schedule
+                  </a>
+                )}
+              </Menu.Item>
+              <Menu.Item>
+                {({ active }) => (
+                  <a
+                    href={'/payout'}
+                    className='block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-t border-gray-200'
+                  >
+                    Payout
                   </a>
                 )}
               </Menu.Item>

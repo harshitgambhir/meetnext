@@ -1,4 +1,4 @@
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useRef } from 'react';
 import { Formik } from "formik";
 import * as Yup from 'yup';
 import Button from '../Button';
@@ -22,7 +22,8 @@ const validationSchema = Yup.object({
 })
 
 const UpdateProfile = ({ title, onDone, user }) => {
-  const { mutate, isLoading, isSuccess } = useMutation('updateUser', api.updateUser)
+  const { mutate, isLoading, isSuccess, isError, error } = useMutation('updateUser', api.updateUser);
+  const formikRef = useRef(null);
 
   useEffect(() => {
     if (isSuccess) {
@@ -31,6 +32,12 @@ const UpdateProfile = ({ title, onDone, user }) => {
       }
     }
   }, [isSuccess])
+
+  useEffect(() => {
+    if (isError) {
+      formikRef.current.setFieldError(error.error.key, error.error.message)
+    }
+  }, [isError])
 
   const handleSubmit = (values) => {
     const formData = new FormData();
@@ -50,11 +57,17 @@ const UpdateProfile = ({ title, onDone, user }) => {
           validationSchema={validationSchema}
           onSubmit={handleSubmit}
           validateOnMount
+          innerRef={formikRef}
         >
           {({ values, handleChange, handleBlur, handleSubmit, setFieldValue, errors }) => (
             <form
               onSubmit={handleSubmit}
               className='flex flex-col items-center'
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  handleSubmit(e);
+                }
+              }}
             >
               <div className='w-full'>
                 <div className='flex items-start'>

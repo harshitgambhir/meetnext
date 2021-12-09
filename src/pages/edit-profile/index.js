@@ -4,7 +4,6 @@ import UpdateProfile from '../../components/UpdateProfile';
 import toast from 'react-hot-toast';
 
 export default function EditProfile({ user }) {
-  console.log(user)
   return (
     <div>
       <Header user={user} />

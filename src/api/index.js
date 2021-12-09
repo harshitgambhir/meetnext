@@ -25,7 +25,7 @@ export const updateUser = (data) => api.put('/profile', data, {
   headers: {
     'content-type': 'multipart/form-data',
   }
-}).then(res => res.data);
+}).then(res => res.data).catch((error) => { throw error.response.data });
 
 export const getPublicUser = (username) => api.get(`/user/${username}`).then(res => res.data);
 
@@ -45,7 +45,6 @@ export const getMeetings = (ctx) => api.get('meetings', {
   }
 }).then(res => res.data);
 
-export const getMeeting = (id) => api.get(`/meetings/${id}`).then(res => {
-  console.log(res.data)
-  return res.data
-});
+export const getMeeting = (id) => api.get(`/meetings/${id}`).then(res => res.data);
+
+export const updateMobile = (data) => api.put(`/update-mobile`, data).then(res => res.data);

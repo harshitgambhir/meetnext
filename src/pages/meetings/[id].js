@@ -8,14 +8,13 @@ export default function MeetingPage({ meeting: { id, personName, personEmail, me
       <div className='fixed z-10 bg-white max-w-[22rem] mx-auto inset-x-0 top-0 w-full flex items-center justify-center px-4 my-2 h-14' >
         <Link href="/">
           <a className='block'>
-            <Image className="w-auto" height={40} width={40} src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg" alt="" />
+            <Image className="w-auto" height={40} width={128} src="/images/inmeet.png" alt="" objectFit='contain' />
           </a>
         </Link>
       </div>
       <div className='mt-12'>
         <div className='flex items-center'>
-          <div className=''>Meeting #{id}</div>
-
+          <div className=''>Meeting</div>
           {
             success === 1 ?
               <div className='ml-4 py-2 px-3 rounded-full bg-green-500 text-white font-semibold text-xs border-blue'>Confirmed</div>
@@ -43,6 +42,8 @@ export default function MeetingPage({ meeting: { id, personName, personEmail, me
         </div>
         <div className='border rounded-md border-gray-300 p-3 mt-8'>
           <div className='font-semibold text-md'>Meeting information</div>
+          <div className='font-medium text-sm mt-4'>Meeting ID</div>
+          <div className='text-sm mt-1'>{id}</div>
           <div className='font-medium text-sm mt-4'>Person</div>
           <div className='mt-1 flex items-center'>
             <Image height={40} width={30} className='rounded-md' src={user.avatar} alt='' objectFit='cover' />

@@ -9,6 +9,7 @@ import Input from '../../components/Input';
 import { useMutation } from 'react-query';
 import Script from 'next/script';
 import Link from 'next/link';
+import Head from 'next/head';
 
 const validationSchema = Yup.object({
   personName: Yup.string().min(1, '').max(50, '').required(''),
@@ -103,6 +104,17 @@ export default function PublicUser({ user }) {
 
   return (
     <>
+      <Head>
+        <title>Book a time with me on Inmeet</title>
+        <meta name='description' content='Inmeet is a platform that can help you host paid 1-on-1 meetings with people virtually.' />
+        <meta property="og:title" content="Book a time with me on Inmeet" />
+        <meta property="og:description" content="Inmeet is a platform that can help you host paid 1-on-1 meetings with people virtually." />
+        <meta property="og:url" content={`https://inmeet.co/${user.username}`} />
+        <meta name="twitter:card" content="summary" />
+        <meta property="twitter:title" content="Book a time with me on Inmeet" />
+        <meta property="twitter:description" content="Inmeet is a platform that can help you host paid 1-on-1 meetings with people virtually." />
+        <meta property="og:type" content="website" />
+      </Head>
       {isSuccess && <Script type="application/javascript" crossOrigin="anonymous" src="https://securegw-stage.paytm.in/merchantpgpui/checkoutjs/merchants/WkDiKJ53470835719469.js" onLoad={onScriptLoad} />}
       <div className='max-w-[22rem] mx-auto px-4 py-6'>
         {
@@ -111,7 +123,7 @@ export default function PublicUser({ user }) {
             <div className='fixed z-10 bg-white max-w-[22rem] mx-auto inset-x-0 top-0 w-full flex items-center justify-center px-4 my-2 h-14' >
               <Link href="/">
                 <a className='block'>
-                  <Image className="w-auto" height={40} width={40} src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg" alt="" />
+                  <Image className="w-auto" height={40} width={128} src="/images/inmeet.png" alt="" objectFit='contain' />
                 </a>
               </Link>
             </div>
