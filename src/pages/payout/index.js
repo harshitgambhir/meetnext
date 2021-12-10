@@ -49,10 +49,10 @@ export default function Payout({ user }) {
 
                     <Popover.Panel className="absolute z-10 left-[-110px]">
                       <div className='text-white p-4 bg-trueGray-800 break-words min-w-[20rem] rounded'>
-                        After your meeting is complete, your payment will appear here as "Pending" for 7 days
+                        {`After your meeting is complete, your payment will appear here as "Pending" for 7 days
                         This period allows allows us to have time to resolve any disputes if there was an issue
                         on the user's end. After 7 days your payment will appear here as "Ready" and will be transfered
-                        to your bank account registered with your given mobile number on the every saturday.
+                        to your bank account registered with your given mobile number on the every saturday.`}
                       </div>
                     </Popover.Panel>
                   </Popover>
