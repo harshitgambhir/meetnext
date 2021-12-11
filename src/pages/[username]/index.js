@@ -10,20 +10,23 @@ import { useMutation } from 'react-query';
 import Script from 'next/script';
 import Link from 'next/link';
 import Head from 'next/head';
+import Error from 'next/error';
 
 const validationSchema = Yup.object({
   personName: Yup.string().min(1, '').max(50, '').required(''),
   personEmail: Yup.string()
     .email('Please enter a valid email address')
     .required(''),
+  description: Yup.string().min(1, '').max(150, '').required(''),
 })
 
-export default function PublicUser({ user }) {
+export default function PublicUser({ errorCode, user }) {
   const [currentScreen, setCurrentScreen] = useState('Profile');
   const [selectedTime, setSelectedTime] = useState({});
   const [details, setDetails] = useState({
     personName: '',
-    personEmail: ''
+    personEmail: '',
+    description: ''
   });
   const { mutate, isSuccess, data, isError, reset } = useMutation('addMeeting', api.addMeeting);
   const [isOrderCreating, setIsOrderCreating] = useState(false);
@@ -101,6 +104,10 @@ export default function PublicUser({ user }) {
       handlePaytm();
     }
   }, [isSuccess, data])
+
+  if (errorCode) {
+    return <Error statusCode={errorCode} />
+  }
 
   return (
     <>
@@ -236,6 +243,21 @@ export default function PublicUser({ user }) {
                       className='mt-6'
                       error={errors.personEmail}
                     />
+                    <Input
+                      type='text'
+                      name='description'
+                      label='Write purpose of the meeting'
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      value={values.description}
+                      minLength={1}
+                      maxLength={150}
+                      disabled={isOrderCreating}
+                      className='mt-6'
+                      textarea
+                      rows={5}
+                      error={errors.description}
+                    />
                   </div>
                   <div className='fixed bg-white max-w-[22rem] mx-auto inset-x-0 bottom-0 w-full flex items-center justify-between px-4 my-2 h-14'>
                     <div className='text-md font-medium'>₹{user.price}</div>
@@ -289,8 +311,9 @@ export const getServerSideProps = async function (ctx) {
       props: { user: data?.user },
     }
   } catch (err) {
+    const errorCode = err?.response?.status || 500
     return {
-      notFound: true
+      props: { errorCode }
     }
   }
 }
