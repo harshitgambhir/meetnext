@@ -1,3 +1,9 @@
+let isDev = false;
+
+if (process && process.env.NODE_ENV === 'development') {
+  isDev = true;
+}
+
 module.exports = {
-  API_URL: 'http://localhost:5000'
+  API_URL: isDev ? 'http://localhost:5000' : 'https://api.inmeet.co'
 }
