@@ -31,9 +31,9 @@ export default function EditSchedule({ user, times: _times, calendar }) {
   return (
     <div>
       <Header user={user} />
-      <div className='px-4 sm:px-6 py-6 text-left max-w-4xl w-full mx-auto'>
+      <div className='px-4 py-8 text-left max-w-5xl w-full mx-auto'>
         <div className='flex items-center justify-between'>
-          <div className='text-3xl font-bold'>Edit Schedule</div>
+          <div className='text-3xl font-medium'>Edit Schedule</div>
           <Button
             text='Save'
             loading={isLoading}

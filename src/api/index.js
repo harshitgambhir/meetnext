@@ -39,11 +39,9 @@ export const updateTimes = (data) => api.put('/update-times', data).then(res => 
 
 export const addMeeting = ({ username, data }) => api.post(`/user/${username}/meet`, data).then(res => res.data);
 
-export const getMeetings = (ctx) => api.get('meetings', {
-  headers: {
-    cookie: ctx?.req?.headers?.cookie
-  }
-}).then(res => res.data);
+export const getUpcomingMeetings = () => api.get('meetings/upcoming').then(res => res.data);
+
+export const getPastMeetings = () => api.get('meetings/past').then(res => res.data);
 
 export const getMeeting = (id) => api.get(`/meetings/${id}`).then(res => res.data);
 

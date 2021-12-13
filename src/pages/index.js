@@ -7,8 +7,104 @@ import Link from 'next/link';
 import Image from 'next/image';
 import Button from '../components/Button';
 import Head from 'next/head';
+import { useQuery } from 'react-query';
+import { useState } from 'react';
 
-function Authenticated({ user, meetings }) {
+function Upcoming() {
+  const { data, isLoading } = useQuery('getUpcomingMeetings', api.getUpcomingMeetings);
+
+  if (isLoading) {
+    return (
+      <div className='my-6 max-w-xl flex items-center justify-center'>
+        <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-blue-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+        </svg>
+      </div>
+    )
+  }
+
+  return (
+    <div className='space-y-6 my-6 max-w-xl'>
+      {
+        data?.meetings.map(({ id, meetDateDisplay, meetTimeDisplay, amount, personName, description, meetLink }) => {
+          return (
+            <div key={id} className='border border-gray-300 rounded-lg shadow'>
+              <div className='flex items-center justify-between px-6 py-4 border-b border-gray-300'>
+                <div className='font-medium'>{meetDateDisplay}</div>
+                <div className='font-medium'>{meetTimeDisplay}</div>
+                <div className='font-medium'>₹{amount}</div>
+              </div>
+              <div className='px-6 py-4'>
+                <div className='text-lg font-semibold'>{personName} <span className='text-gray-500 font-normal ml-4'>(30 min)</span></div>
+                <p className='mt-2 font-medium break-words'>{description}</p>
+                <Button
+                  text='Join meeting'
+                  className='w-auto mt-4'
+                  link
+                  href={meetLink}
+                />
+              </div>
+            </div>
+          );
+        })
+      }
+    </div>
+  )
+}
+
+function Past() {
+  const { data, isLoading } = useQuery('getPastMeetings', api.getPastMeetings);
+
+  if (isLoading) {
+    return (
+      <div className='my-6 max-w-xl flex items-center justify-center'>
+        <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-blue-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+        </svg>
+      </div>
+    )
+  }
+
+  return (
+    <div className='space-y-6 my-6 max-w-xl'>
+      {
+        data?.meetings.map(({ id, meetDateDisplay, meetTimeDisplay, amount, personName, description, meetLink }) => {
+          return (
+            <div key={id} className='border border-gray-300 rounded-lg shadow'>
+              <div className='flex items-center justify-between px-6 py-4 border-b border-gray-300'>
+                <div className='font-medium'>{meetDateDisplay}</div>
+                <div className='font-medium'>{meetTimeDisplay}</div>
+                <div className='font-medium'>₹{amount}</div>
+              </div>
+              <div className='px-6 py-4'>
+                <div className='text-lg font-semibold'>{personName} <span className='text-gray-500 font-normal ml-4'>(30 min)</span></div>
+                <p className='mt-2 font-medium break-words'>{description}</p>
+                <Button
+                  text='Join meeting'
+                  className='w-auto mt-4'
+                  link
+                  href={meetLink}
+                />
+              </div>
+            </div>
+          );
+        })
+      }
+    </div >
+  )
+}
+
+function Authenticated({ user }) {
+  const [currentTab, setCurrentTab] = useState('Upcoming');
+
+  const styles = (name) => {
+    if (name === currentTab) {
+      return 'text-blue-600 border-b-2 border-blue-500'
+    }
+    return 'border-b-2 border-white'
+  }
   return (
     <div>
       {!user.username && (
@@ -18,21 +114,18 @@ function Authenticated({ user, meetings }) {
           onDone={() => Router.replace(Router.asPath)}
         />
       )}
-      <div className='px-4 sm:px-6 py-6 text-left max-w-3xl w-full mx-auto'>
-        <div className='text-3xl font-bold'>Meetings</div>
-        <div className='space-y-6 my-6'>
-          {
-            meetings.map(({ id, meetDateDisplay, personName, meetLink }) => {
-              return (
-                <div key={id}>
-                  <div className='font-semibold text-md'>{meetDateDisplay}</div>
-                  <div className='text-md text-gray-500 font-medium'>{personName}</div>
-                  <Link href={meetLink} className='text-md'>{meetLink}</Link>
-                </div>
-              );
-            })
-          }
+      <div className='px-4 py-8 text-left max-w-5xl mx-auto'>
+        <div className='text-3xl font-medium'>Meetings</div>
+        <div className='flex mt-4'>
+          <div className={`${styles('Upcoming')} cursor-pointer py-2 font-semibold`} onClick={() => setCurrentTab('Upcoming')}>Upcoming</div>
+          <div className={`${styles('Past')} ml-4 cursor-pointer py-2 font-semibold`} onClick={() => setCurrentTab('Past')}>Past</div>
         </div>
+        {
+          currentTab === 'Upcoming' ?
+            <Upcoming />
+            :
+            <Past />
+        }
       </div>
     </div>
   );
@@ -42,7 +135,7 @@ function UnAuthenticated() {
   return (
     <div className='bg-gray-50'>
       <div className='max-w-5xl mx-auto'>
-        <div className='flex items-center px-4 sm:px-6 py-8 justify-between space-x-10 '>
+        <div className='flex items-center px-4 py-8 justify-between space-x-10 '>
           <div className="flex items-center justify-between">
             <Link href="/">
               <a className='flex items-center'>
@@ -135,9 +228,8 @@ export const getServerSideProps = withUser(async function (ctx) {
   const { req } = ctx;
 
   if (req.session?.user) {
-    const data = await api.getMeetings(ctx);
     return {
-      props: { user: req.session.user, meetings: data?.meetings },
+      props: { user: req.session.user },
     }
   }
 

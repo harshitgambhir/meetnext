@@ -12,7 +12,7 @@ export default function Payout({ user }) {
     <div>
       <Header user={user} />
       <div className='max-w-3xl w-full mx-auto px-4 sm:px-6'>
-        <h3 className='text-3xl font-bold mt-6'>Payout</h3>
+        <h3 className='text-3xl font-medium mt-6'>Payout</h3>
         <div className='flex flex-col sm:flex-row justify-between mt-6'>
           <div className='border rounded-md border-gray-300 p-5 w-full'>
             <div className='font-semibold text-lg'>Bank details</div>
@@ -50,9 +50,9 @@ export default function Payout({ user }) {
                     <Popover.Panel className="absolute z-10 left-[-110px]">
                       <div className='text-white p-4 bg-trueGray-800 break-words min-w-[20rem] rounded'>
                         {`After your meeting is complete, your payment will appear here as "Pending" for 7 days
-                        This period allows allows us to have time to resolve any disputes if there was an issue
+                        This period allows us to have time to resolve any disputes if there was an issue
                         on the user's end. After 7 days your payment will appear here as "Ready" and will be transfered
-                        to your bank account registered with your given mobile number on the every saturday.`}
+                        to your bank account registered with your given mobile number on every saturday.`}
                       </div>
                     </Popover.Panel>
                   </Popover>

@@ -50,7 +50,7 @@ const UpdateProfile = ({ title, onDone, user }) => {
   }
 
   return (
-    <div className='items-end justify-center text-center px-4 sm:px-6 py-6'>
+    <div className='items-end justify-center text-center px-4 py-8'>
       <div className='text-left max-w-md w-full mx-auto'>
         <Formik
           initialValues={{ avatar: user.avatar || '', name: user.name || '', username: user.username || '', about: user.about || '', price: user.price || '' }}
@@ -72,7 +72,7 @@ const UpdateProfile = ({ title, onDone, user }) => {
               <div className='w-full'>
                 <div className='flex items-start'>
                   <div className='w-full'>
-                    <h3 className='text-3xl font-bold'>{title}</h3>
+                    <h3 className='text-3xl font-medium'>{title}</h3>
                     <div className='mt-8'>
                       <div>
                         <div className='relative h-28 w-28 mx-auto flex items-center justify-center'>

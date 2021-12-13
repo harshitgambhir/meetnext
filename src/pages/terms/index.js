@@ -6,7 +6,7 @@ const terms = () => {
   return (
     <div className='bg-gray-50'>
       <div className='max-w-5xl mx-auto'>
-        <div className='flex items-center px-4 sm:px-6 py-8 justify-between space-x-10 '>
+        <div className='flex items-center px-4 py-8 justify-between space-x-10 '>
           <div className="flex items-center justify-between">
             <Link href="/">
               <a className='flex items-center'>
