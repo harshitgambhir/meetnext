@@ -51,8 +51,15 @@ export default function MeetingPage({ meeting: { id, personName, personEmail, me
           </div>
           <div className='font-medium text-sm mt-4'>Date and time</div>
           <div className='text-sm mt-1'>{meetDateDisplay}</div>
-          <div className='font-medium text-sm mt-4'>Meet Link</div>
-          <Link href={meetLink} className='text-sm mt-1'>{meetLink}</Link>
+          {
+            success === 1 ?
+              <>
+                <div className='font-medium text-sm mt-4'>Meet Link</div>
+                <Link href={meetLink} className='text-sm mt-1'>{meetLink}</Link>
+              </>
+              :
+              null
+          }
           <div className='font-medium text-sm mt-4'>Amount</div>
           <div className='text-sm mt-1'>₹{amount}</div>
           <div className='font-medium text-sm mt-4'>Your details</div>
