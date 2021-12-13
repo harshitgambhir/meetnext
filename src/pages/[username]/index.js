@@ -134,7 +134,7 @@ export default function PublicUser({ errorCode, user }) {
                 </a>
               </Link>
             </div>
-            <div className='h-96 w-80 mx-auto relative rounded-xl mt-12' ><Image priority className='object-cover rounded-xl' src={user.avatar} alt='' layout='fill' /></div>
+            <div className='h-96 w-80 mx-auto relative rounded-xl mt-12' ><Image priority className='rounded-xl' src={user.avatar} alt='' layout='fill' objectFit='cover' /></div>
             <div className='mt-4 font-bold text-xl'>{user.name}</div>
             <div className='mt-1 text-md whitespace-pre-wrap'>{user.about}</div>
             <div className='fixed bg-white max-w-[22rem] mx-auto inset-x-0 bottom-0 w-full flex items-center justify-between px-4 my-2 h-14'>

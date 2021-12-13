@@ -26,6 +26,7 @@ const Header = ({ user }) => {
                   height={32}
                   src={user.avatar}
                   alt=''
+                  objectFit='cover'
                 />
               </Menu.Button>
             </div>
@@ -48,6 +49,7 @@ const Header = ({ user }) => {
                         height={24}
                         src={user.avatar}
                         alt=''
+                        objectFit='cover'
                       />
                       <p className="ml-3 text-xs truncate">{user.email}</p>
                     </div>

@@ -41,7 +41,7 @@ const UpdateProfile = ({ title, onDone, user }) => {
 
   const handleSubmit = (values) => {
     const formData = new FormData();
-    formData.append('avatar', values.avatar);
+    formData.append('avatar', values.fileAvatar);
     formData.append('name', values.name);
     formData.append('username', values.username);
     formData.append('about', values.about);
@@ -53,7 +53,7 @@ const UpdateProfile = ({ title, onDone, user }) => {
     <div className='items-end justify-center text-center px-4 py-8'>
       <div className='text-left max-w-md w-full mx-auto'>
         <Formik
-          initialValues={{ avatar: user.avatar || '', name: user.name || '', username: user.username || '', about: user.about || '', price: user.price || '' }}
+          initialValues={{ avatar: user.avatar || '', fileAvatar: '', name: user.name || '', username: user.username || '', about: user.about || '', price: user.price || '' }}
           validationSchema={validationSchema}
           onSubmit={handleSubmit}
           validateOnMount
@@ -82,6 +82,7 @@ const UpdateProfile = ({ title, onDone, user }) => {
                             height={96}
                             src={values.avatar}
                             alt=''
+                            objectFit='cover'
                           />
                           <PencilFill className='h-4 w-4 absolute bottom-0 right-0 text-gray-700' />
                           <input
@@ -94,11 +95,13 @@ const UpdateProfile = ({ title, onDone, user }) => {
                               fileReader.onload = () => {
                                 if (fileReader.readyState === 2) {
                                   setFieldValue('avatar', fileReader.result);
+                                  setFieldValue('fileAvatar', e.target.files[0]);
                                 }
                               };
                               fileReader.readAsDataURL(e.target.files[0]);
                             }}
                             onBlur={handleBlur}
+                            disabled={isLoading}
                           />
                         </div>
                         <Input
