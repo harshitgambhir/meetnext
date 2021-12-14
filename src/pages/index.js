@@ -9,6 +9,7 @@ import Button from '../components/Button';
 import Head from 'next/head';
 import { useQuery } from 'react-query';
 import { useState } from 'react';
+import UpdateTimes from '../components/UpdateTimes';
 
 function Upcoming() {
   const { data, isLoading } = useQuery('getUpcomingMeetings', api.getUpcomingMeetings);
@@ -20,6 +21,14 @@ function Upcoming() {
           <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
           <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
         </svg>
+      </div>
+    )
+  }
+
+  if (data?.meetings.length === 0) {
+    return (
+      <div className='my-6 max-w-xl flex items-center justify-center'>
+        <div>No upcoming meetings</div>
       </div>
     )
   }
@@ -67,6 +76,14 @@ function Past() {
     )
   }
 
+  if (data?.meetings.length === 0) {
+    return (
+      <div className='my-6 max-w-xl flex items-center justify-center'>
+        <div>No Past meetings</div>
+      </div>
+    )
+  }
+
   return (
     <div className='space-y-6 my-6 max-w-xl'>
       {
@@ -96,8 +113,9 @@ function Past() {
   )
 }
 
-function Authenticated({ user }) {
+function Authenticated({ user, times, calendar }) {
   const [currentTab, setCurrentTab] = useState('Upcoming');
+  const [showUpdateTimes, setShowUpdateTimes] = useState(false);
 
   const styles = (name) => {
     if (name === currentTab) {
@@ -111,22 +129,32 @@ function Authenticated({ user }) {
         <UpdateProfile
           user={user}
           title='Create your profile'
-          onDone={() => Router.replace(Router.asPath)}
+          onDone={() => {
+            Router.push(Router.asPath)
+            setShowUpdateTimes(true)
+          }}
         />
       ) :
-        <div className='px-4 py-8 text-left max-w-5xl mx-auto'>
-          <div className='text-3xl font-medium'>Meetings</div>
-          <div className='flex mt-4'>
-            <div className={`${styles('Upcoming')} cursor-pointer py-2 font-semibold`} onClick={() => setCurrentTab('Upcoming')}>Upcoming</div>
-            <div className={`${styles('Past')} ml-4 cursor-pointer py-2 font-semibold`} onClick={() => setCurrentTab('Past')}>Past</div>
+        showUpdateTimes ?
+          <UpdateTimes user={user} times={times} calendar={calendar} onSubmit={() => {
+            Router.push(Router.asPath)
+            setShowUpdateTimes(false);
+          }} />
+          :
+          <div className='px-4 py-8 text-left max-w-5xl mx-auto'>
+            <div className='text-3xl font-medium'>Meetings</div>
+            <div className='flex mt-4'>
+              <div className={`${styles('Upcoming')} cursor-pointer py-2 font-semibold`} onClick={() => setCurrentTab('Upcoming')}>Upcoming</div>
+              <div className={`${styles('Past')} ml-4 cursor-pointer py-2 font-semibold`} onClick={() => setCurrentTab('Past')}>Past</div>
+            </div>
+            {
+              currentTab === 'Upcoming' ?
+                <Upcoming />
+                :
+                <Past />
+            }
           </div>
-          {
-            currentTab === 'Upcoming' ?
-              <Upcoming />
-              :
-              <Past />
-          }
-        </div>}
+      }
     </div>
   );
 }
@@ -203,7 +231,7 @@ function UnAuthenticated() {
   )
 }
 
-export default function Home({ user, meetings }) {
+export default function Home({ user, meetings, times, calendar }) {
   return (
     <div>
       <Head>
@@ -219,14 +247,19 @@ export default function Home({ user, meetings }) {
         <meta content="summary_large_image" name="twitter:card" />
       </Head>
       {user && <Header user={user} />}
-      {user ? <Authenticated user={user} meetings={meetings} /> : <UnAuthenticated />}
+      {user ? <Authenticated user={user} meetings={meetings} times={times} calendar={calendar} /> : <UnAuthenticated />}
     </div>
   );
 }
 
 export const getServerSideProps = withUser(async function (ctx) {
   const { req } = ctx;
-
+  if (req.session && req.session.user && req.session.user.username) {
+    const data = await api.getTimes(ctx);
+    return {
+      props: { user: req.session.user, times: data?.times, calendar: data?.calendar },
+    }
+  }
   if (req.session?.user) {
     return {
       props: { user: req.session.user },
