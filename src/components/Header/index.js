@@ -75,7 +75,7 @@ const Header = ({ user }) => {
                     </a>
                   )}
                 </Menu.Item>
-                <Menu.Item>
+                {user.username && <Menu.Item>
                   {({ active }) => (
                     <a
                       href={'/payout'}
@@ -85,6 +85,7 @@ const Header = ({ user }) => {
                     </a>
                   )}
                 </Menu.Item>
+                }
                 <Menu.Item>
                   {({ active }) => (
                     <a
