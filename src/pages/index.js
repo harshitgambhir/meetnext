@@ -107,26 +107,26 @@ function Authenticated({ user }) {
   }
   return (
     <div>
-      {!user.username && (
+      {!user.username ? (
         <UpdateProfile
           user={user}
           title='Create your profile'
           onDone={() => Router.replace(Router.asPath)}
         />
-      )}
-      <div className='px-4 py-8 text-left max-w-5xl mx-auto'>
-        <div className='text-3xl font-medium'>Meetings</div>
-        <div className='flex mt-4'>
-          <div className={`${styles('Upcoming')} cursor-pointer py-2 font-semibold`} onClick={() => setCurrentTab('Upcoming')}>Upcoming</div>
-          <div className={`${styles('Past')} ml-4 cursor-pointer py-2 font-semibold`} onClick={() => setCurrentTab('Past')}>Past</div>
-        </div>
-        {
-          currentTab === 'Upcoming' ?
-            <Upcoming />
-            :
-            <Past />
-        }
-      </div>
+      ) :
+        <div className='px-4 py-8 text-left max-w-5xl mx-auto'>
+          <div className='text-3xl font-medium'>Meetings</div>
+          <div className='flex mt-4'>
+            <div className={`${styles('Upcoming')} cursor-pointer py-2 font-semibold`} onClick={() => setCurrentTab('Upcoming')}>Upcoming</div>
+            <div className={`${styles('Past')} ml-4 cursor-pointer py-2 font-semibold`} onClick={() => setCurrentTab('Past')}>Past</div>
+          </div>
+          {
+            currentTab === 'Upcoming' ?
+              <Upcoming />
+              :
+              <Past />
+          }
+        </div>}
     </div>
   );
 }
