@@ -65,7 +65,7 @@ const Header = ({ user }) => {
                     </a>
                   )}
                 </Menu.Item>
-                <Menu.Item>
+                {user.username && <Menu.Item>
                   {({ active }) => (
                     <a
                       href={'/edit-schedule'}
@@ -75,6 +75,7 @@ const Header = ({ user }) => {
                     </a>
                   )}
                 </Menu.Item>
+                }
                 {user.username && <Menu.Item>
                   {({ active }) => (
                     <a
