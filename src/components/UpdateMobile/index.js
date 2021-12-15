@@ -10,7 +10,7 @@ const validationSchema = Yup.object({
   mobile: Yup.string().min(10, '').max(10, '').required(''),
 })
 
-const UpdateProfile = ({ onDone, user, handleCancelClick }) => {
+const UpdateMobile = ({ onDone, user, handleCancelClick }) => {
   const { mutate, isLoading, isSuccess, isError, error } = useMutation('updateMobile', api.updateMobile);
   const formikRef = useRef(null);
 
@@ -87,4 +87,4 @@ const UpdateProfile = ({ onDone, user, handleCancelClick }) => {
   );
 }
 
-export default UpdateProfile;
+export default UpdateMobile;

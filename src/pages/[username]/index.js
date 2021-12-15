@@ -123,21 +123,21 @@ export default function PublicUser({ errorCode, user }) {
         <meta property="og:type" content="website" />
       </Head>
       {isSuccess && <Script type="application/javascript" crossOrigin="anonymous" src="https://securegw-stage.paytm.in/merchantpgpui/checkoutjs/merchants/WkDiKJ53470835719469.js" onLoad={onScriptLoad} />}
-      <div className='max-w-[22rem] mx-auto px-4 py-6'>
+      <div className='xs:max-w-[22rem] mx-auto px-4 py-6'>
         {
           currentScreen === 'Profile' &&
           <>
-            <div className='fixed z-10 bg-white max-w-[22rem] mx-auto inset-x-0 top-0 w-full flex items-center justify-center px-4 my-2 h-14' >
+            <div className='fixed z-10 bg-white xs:max-w-[22rem] mx-auto inset-x-0 top-0 w-full flex items-center justify-center px-4 my-2 h-14' >
               <Link href="/">
                 <a className='block'>
                   <Image className="w-auto" height={40} width={128} src="/images/inmeet.png" alt="" objectFit='contain' />
                 </a>
               </Link>
             </div>
-            <div className='h-96 w-80 mx-auto relative rounded-xl mt-12' ><Image priority className='rounded-xl' src={user.avatar} alt='' layout='fill' objectFit='cover' /></div>
+            <div className='h-[22rem] sm:h-96 mx-auto relative rounded-xl mt-12' ><Image priority className='rounded-xl' src={user.avatar} alt='' layout='fill' objectFit='cover' /></div>
             <div className='mt-4 font-bold text-xl'>{user.name}</div>
             <div className='mt-1 text-md whitespace-pre-wrap'>{user.about}</div>
-            <div className='fixed bg-white max-w-[22rem] mx-auto inset-x-0 bottom-0 w-full flex items-center justify-between px-4 my-2 h-14'>
+            <div className='fixed bg-white xs:max-w-[22rem] mx-auto inset-x-0 bottom-0 w-full flex items-center justify-between px-4 my-2 h-14'>
               <div className='text-md font-medium'>₹{user.price}</div>
               <Button
                 text='Book Now'
@@ -149,7 +149,7 @@ export default function PublicUser({ errorCode, user }) {
         }
         {currentScreen === 'SelectTime' &&
           <>
-            <div className='w-full fixed bg-white max-w-[22rem] mx-auto inset-x-0 top-0 px-4 h-14 my-2 flex items-center' >
+            <div className='w-full fixed bg-white xs:max-w-[22rem] mx-auto inset-x-0 top-0 px-4 h-14 my-2 flex items-center' >
               <ChevronLeft onClick={() => setCurrentScreen('Profile')} className='font-bold text-2xl cursor-pointer' />
               <div className='font-bold text-xl ml-6'>Select Time</div>
             </div>
@@ -186,7 +186,7 @@ export default function PublicUser({ errorCode, user }) {
                 }
               </div>
             </div>
-            <div className='fixed bg-white max-w-[22rem] mx-auto inset-x-0 bottom-0 w-full flex items-center justify-between px-4 my-2 h-14'>
+            <div className='fixed bg-white xs:max-w-[22rem] mx-auto inset-x-0 bottom-0 w-full flex items-center justify-between px-4 my-2 h-14'>
               <div className='text-md font-medium'>₹{user.price}</div>
               <Button
                 text='Next'
@@ -199,7 +199,7 @@ export default function PublicUser({ errorCode, user }) {
         }
         {currentScreen === 'EnterDetails' &&
           <>
-            <div className='w-full fixed bg-white max-w-[22rem] mx-auto inset-x-0 top-0 px-4 h-14 my-2 flex items-center' >
+            <div className='w-full fixed bg-white xs:max-w-[22rem] mx-auto inset-x-0 top-0 px-4 h-14 my-2 flex items-center' >
               <ChevronLeft onClick={() => setCurrentScreen('SelectTime')} className='font-bold text-2xl cursor-pointer' />
               <div className='font-bold text-xl ml-6'>Enter Details</div>
             </div>
@@ -259,7 +259,7 @@ export default function PublicUser({ errorCode, user }) {
                       error={errors.description}
                     />
                   </div>
-                  <div className='fixed bg-white max-w-[22rem] mx-auto inset-x-0 bottom-0 w-full flex items-center justify-between px-4 my-2 h-14'>
+                  <div className='fixed bg-white xs:max-w-[22rem] mx-auto inset-x-0 bottom-0 w-full flex items-center justify-between px-4 my-2 h-14'>
                     <div className='text-md font-medium'>₹{user.price}</div>
                     <Button
                       type='submit'
@@ -276,7 +276,7 @@ export default function PublicUser({ errorCode, user }) {
         }
         {currentScreen === 'Pay' &&
           <>
-            <div className='w-full fixed bg-white max-w-[22rem] mx-auto inset-x-0 top-0 px-4 h-14 my-2 flex items-center' >
+            <div className='w-full fixed bg-white xs:max-w-[22rem] mx-auto inset-x-0 top-0 px-4 h-14 my-2 flex items-center' >
               <ChevronLeft onClick={() => setCurrentScreen('EnterDetails')} className='font-bold text-2xl cursor-pointer' />
               <div className='font-bold text-xl ml-6'>Payment</div>
             </div>
@@ -286,7 +286,7 @@ export default function PublicUser({ errorCode, user }) {
                 <Image height={40} width={50} src="/images/paytm.png" alt="" objectFit='contain' />
               </div>
             </div>
-            <div className='fixed bg-white max-w-[22rem] mx-auto inset-x-0 bottom-0 w-full flex items-center justify-between px-4 my-2 h-14'>
+            <div className='fixed bg-white xs:max-w-[22rem] mx-auto inset-x-0 bottom-0 w-full flex items-center justify-between px-4 my-2 h-14'>
               <div className='text-md font-medium'>₹{user.price}</div>
               <Button
                 text='Pay'

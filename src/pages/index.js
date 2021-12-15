@@ -10,6 +10,7 @@ import Head from 'next/head';
 import { useQuery } from 'react-query';
 import { useState } from 'react';
 import UpdateTimes from '../components/UpdateTimes';
+import UpdateMobile from '../components/UpdateMobile';
 
 function Upcoming() {
   const { data, isLoading } = useQuery('getUpcomingMeetings', api.getUpcomingMeetings);
@@ -116,6 +117,7 @@ function Past() {
 function Authenticated({ user, times, calendar }) {
   const [currentTab, setCurrentTab] = useState('Upcoming');
   const [showUpdateTimes, setShowUpdateTimes] = useState(false);
+  const [showUpdateMobile, setShowUpdateMobile] = useState(false);
 
   const styles = (name) => {
     if (name === currentTab) {
@@ -139,21 +141,37 @@ function Authenticated({ user, times, calendar }) {
           <UpdateTimes user={user} times={times} calendar={calendar} onSubmit={() => {
             Router.push(Router.asPath)
             setShowUpdateTimes(false);
+            setShowUpdateMobile(true);
           }} />
           :
-          <div className='px-4 py-8 text-left max-w-5xl mx-auto'>
-            <div className='text-3xl font-medium'>Meetings</div>
-            <div className='flex mt-4'>
-              <div className={`${styles('Upcoming')} cursor-pointer py-2 font-semibold`} onClick={() => setCurrentTab('Upcoming')}>Upcoming</div>
-              <div className={`${styles('Past')} ml-4 cursor-pointer py-2 font-semibold`} onClick={() => setCurrentTab('Past')}>Past</div>
+          showUpdateMobile ?
+            <div className='items-end justify-center text-center px-4 py-8'>
+              <div className='text-left max-w-md w-full mx-auto'>
+                <h3 className='text-3xl font-medium'>Add Bank Details</h3>
+                <h4 className='text-base text-gray-600 mt-2'>Add your mobile number with a valid upi in which you would like to recieve your meeting payouts.</h4>
+                <UpdateMobile user={user} onDone={() => {
+                  Router.push(Router.asPath)
+                  setShowUpdateMobile(false);
+                }} handleCancelClick={() => {
+                  Router.push(Router.asPath);
+                  setShowUpdateMobile(false);
+                }} />
+              </div>
             </div>
-            {
-              currentTab === 'Upcoming' ?
-                <Upcoming />
-                :
-                <Past />
-            }
-          </div>
+            :
+            <div className='px-4 py-8 text-left max-w-5xl mx-auto'>
+              <div className='text-3xl font-medium'>Meetings</div>
+              <div className='flex mt-4'>
+                <div className={`${styles('Upcoming')} cursor-pointer py-2 font-semibold`} onClick={() => setCurrentTab('Upcoming')}>Upcoming</div>
+                <div className={`${styles('Past')} ml-4 cursor-pointer py-2 font-semibold`} onClick={() => setCurrentTab('Past')}>Past</div>
+              </div>
+              {
+                currentTab === 'Upcoming' ?
+                  <Upcoming />
+                  :
+                  <Past />
+              }
+            </div>
       }
     </div>
   );
