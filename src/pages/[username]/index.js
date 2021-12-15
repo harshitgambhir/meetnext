@@ -122,7 +122,7 @@ export default function PublicUser({ errorCode, user }) {
         <meta property="twitter:description" content="Inmeet is a platform that can help you host paid 1-on-1 meetings with people virtually." />
         <meta property="og:type" content="website" />
       </Head>
-      {isSuccess && <Script type="application/javascript" crossOrigin="anonymous" src={`${process.env.NEXT_PUBLIC_PAYTM_DOMAIN}/merchantpgpui/checkoutjs/merchants/WkDiKJ53470835719469.js`} onLoad={onScriptLoad} />}
+      {isSuccess && <Script type="application/javascript" crossOrigin="anonymous" src={`${process.env.NEXT_PUBLIC_PAYTM_DOMAIN}/merchantpgpui/checkoutjs/merchants/${process.env.NEXT_PUBLIC_PAYTM_MID}.js`} onLoad={onScriptLoad} />}
       <div className='xs:max-w-[22rem] mx-auto px-4 py-6'>
         {
           currentScreen === 'Profile' &&
