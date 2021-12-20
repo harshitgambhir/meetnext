@@ -114,10 +114,19 @@ function Past() {
   )
 }
 
+async function copyTextToClipboard(text) {
+  if ('clipboard' in navigator) {
+    return await navigator.clipboard.writeText(text);
+  } else {
+    return document.execCommand('copy', true, text);
+  }
+}
+
 function Authenticated({ user, times, calendar }) {
   const [currentTab, setCurrentTab] = useState('Upcoming');
   const [showUpdateTimes, setShowUpdateTimes] = useState(false);
   const [showUpdateMobile, setShowUpdateMobile] = useState(false);
+  const [copied, setCopied] = useState(false);
 
   const styles = (name) => {
     if (name === currentTab) {
@@ -160,7 +169,22 @@ function Authenticated({ user, times, calendar }) {
             </div>
             :
             <div className='px-4 py-8 text-left max-w-5xl mx-auto'>
-              <div className='text-3xl font-medium'>Meetings</div>
+              <div className='flex max-w-md justify-between items-center border border-gray-200 px-4 rounded-xl'>
+                <div className='flex items-center flex-wrap'>
+                  <div className='mr-2'>Your Profile Link:</div>
+                  <Link href={`https://inmeet.co/${user.username}`}>{`inmeet.co/${user.username}`}</Link>
+                </div>
+                <button onClick={async () => {
+                  if (!copied) {
+                    await copyTextToClipboard(`https://inmeet.co/${user.username}`)
+                    setCopied(true);
+                    setTimeout(() => {
+                      setCopied(false)
+                    }, [500])
+                  }
+                }} className='ml-4 hover:bg-gray-200 my-2 p-2 rounded-lg'>{copied ? 'Copied!' : 'Copy'}</button>
+              </div>
+              <div className='text-3xl font-medium mt-8'>Meetings</div>
               <div className='flex mt-4'>
                 <div className={`${styles('Upcoming')} cursor-pointer py-2 font-semibold`} onClick={() => setCurrentTab('Upcoming')}>Upcoming</div>
                 <div className={`${styles('Past')} ml-4 cursor-pointer py-2 font-semibold`} onClick={() => setCurrentTab('Past')}>Past</div>

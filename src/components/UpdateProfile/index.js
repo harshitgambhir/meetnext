@@ -129,6 +129,7 @@ const UpdateProfile = ({ title, onDone, user }) => {
                           disabled={isLoading}
                           className='mt-6'
                           error={errors.username}
+                          left='inmeet.co/'
                         />
                         <Input
                           type='text'
