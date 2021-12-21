@@ -118,13 +118,13 @@ export default function PublicUser({ errorCode, user }) {
     <>
       <Head>
         <title>Book a time with me on Inmeet</title>
-        <meta name='description' content='Inmeet is a platform that can help you host paid 1-on-1 meetings with people virtually.' />
+        <meta name='description' content='Inmeet is a platform that can help you host 1-on-1 meetings with people virtually.' />
         <meta property="og:title" content="Book a time with me on Inmeet" />
-        <meta property="og:description" content="Inmeet is a platform that can help you host paid 1-on-1 meetings with people virtually." />
+        <meta property="og:description" content="Inmeet is a platform that can help you host 1-on-1 meetings with people virtually." />
         <meta property="og:url" content={`https://inmeet.co/${user.username}`} />
         <meta name="twitter:card" content="summary" />
         <meta property="twitter:title" content="Book a time with me on Inmeet" />
-        <meta property="twitter:description" content="Inmeet is a platform that can help you host paid 1-on-1 meetings with people virtually." />
+        <meta property="twitter:description" content="Inmeet is a platform that can help you host 1-on-1 meetings with people virtually." />
         <meta property="og:type" content="website" />
       </Head>
       {user.price > 0 && isSuccess && <Script type="application/javascript" crossOrigin="anonymous" src={`${process.env.NEXT_PUBLIC_PAYTM_DOMAIN}/merchantpgpui/checkoutjs/merchants/${process.env.NEXT_PUBLIC_PAYTM_MID}.js`} onLoad={onScriptLoad} />}

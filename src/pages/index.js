@@ -224,8 +224,8 @@ function UnAuthenticated() {
         </div>
         <div className='px-4'>
           <div className='flex flex-col mt-4'>
-            <div className='text-2xl md:text-5xl text-center pt-10 font-bold leading-normal md:leading-normal'>Host paid 1-on-1 meetings<br />with people virtually</div>
-            <div className='text-md md:text-xl text-center pt-2 text-gray-700'>Inmeet is a platform that can help you host paid<br />1-on-1 meetings with people virtually</div>
+            <div className='text-2xl md:text-5xl text-center pt-10 font-bold leading-normal md:leading-normal'>Host 1-on-1 meetings<br />with people virtually</div>
+            <div className='text-md md:text-xl text-center pt-2 text-gray-700'>Inmeet is a platform that can help you host <br />1-on-1 meetings with people virtually</div>
             <Button
               text='Login / Sign up'
               className='w-38 mx-auto mt-8'
@@ -277,13 +277,13 @@ export default function Home({ user, meetings, times, calendar }) {
   return (
     <div>
       <Head>
-        <title>Inmeet | Host 1-on-1 paid meetings</title>
-        <meta name='description' content='Inmeet is a platform that can help you host paid<br />1-on-1 meetings with people virtually.' />
-        <meta content="Inmeet | Host 1-on-1 paid meetings" property="og:title" />
-        <meta content="Inmeet is a platform that can help you host paid<br />1-on-1 meetings with people virtually." property="og:description" />
+        <title>Inmeet | Host 1-on-1 meetings</title>
+        <meta name='description' content='Inmeet is a platform that can help you host <br />1-on-1 meetings with people virtually.' />
+        <meta content="Inmeet | Host 1-on-1 meetings" property="og:title" />
+        <meta content="Inmeet is a platform that can help you host<br />1-on-1 meetings with people virtually." property="og:description" />
         <meta content="/images/inmeet.png" property="og:image" />
-        <meta content="Inmeet | Host 1-on-1 paid meetings" property="twitter:title" />
-        <meta content="Inmeet is a platform that can help you host paid<br />1-on-1 meetings with people virtually." property="twitter:description" />
+        <meta content="Inmeet | Host 1-on-1 meetings" property="twitter:title" />
+        <meta content="Inmeet is a platform that can help you host<br />1-on-1 meetings with people virtually." property="twitter:description" />
         <meta content="/images/inmeet.png" property="twitter:image" />
         <meta property="og:type" content="website" />
         <meta content="summary_large_image" name="twitter:card" />
