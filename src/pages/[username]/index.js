@@ -11,6 +11,7 @@ import Script from 'next/script';
 import Link from 'next/link';
 import Head from 'next/head';
 import Error from 'next/error';
+import { useRouter } from 'next/router';
 
 const validationSchema = Yup.object({
   personName: Yup.string().min(1, '').max(50, '').required(''),
@@ -31,6 +32,7 @@ export default function PublicUser({ errorCode, user }) {
   const { mutate, isSuccess, data, isError, reset } = useMutation('addMeeting', api.addMeeting);
   const [isOrderCreating, setIsOrderCreating] = useState(false);
   const [isScriptLoaded, setIsScriptLoaded] = useState(false);
+  const router = useRouter();
 
   const onSubmit = (values) => {
     setIsOrderCreating(true);
@@ -100,8 +102,11 @@ export default function PublicUser({ errorCode, user }) {
   }, [isError])
 
   useEffect(() => {
-    if (isScriptLoaded && isSuccess) {
+    if (isScriptLoaded && data?.meeting.amount > 0 && isSuccess) {
       handlePaytm();
+    }
+    if (data?.redirectLink) {
+      router.push(data.redirectLink)
     }
   }, [isSuccess, data])
 
@@ -122,7 +127,7 @@ export default function PublicUser({ errorCode, user }) {
         <meta property="twitter:description" content="Inmeet is a platform that can help you host paid 1-on-1 meetings with people virtually." />
         <meta property="og:type" content="website" />
       </Head>
-      {isSuccess && <Script type="application/javascript" crossOrigin="anonymous" src={`${process.env.NEXT_PUBLIC_PAYTM_DOMAIN}/merchantpgpui/checkoutjs/merchants/${process.env.NEXT_PUBLIC_PAYTM_MID}.js`} onLoad={onScriptLoad} />}
+      {user.price > 0 && isSuccess && <Script type="application/javascript" crossOrigin="anonymous" src={`${process.env.NEXT_PUBLIC_PAYTM_DOMAIN}/merchantpgpui/checkoutjs/merchants/${process.env.NEXT_PUBLIC_PAYTM_MID}.js`} onLoad={onScriptLoad} />}
       <div className='xs:max-w-[22rem] mx-auto px-4 py-6'>
         {
           currentScreen === 'Profile' &&
@@ -138,7 +143,7 @@ export default function PublicUser({ errorCode, user }) {
             <div className='mt-4 font-bold text-xl'>{user.name}</div>
             <div className='mt-1 text-md whitespace-pre-wrap'>{user.about}</div>
             <div className='fixed bg-white xs:max-w-[22rem] mx-auto inset-x-0 bottom-0 w-full flex items-center justify-between px-4 my-2 h-14'>
-              <div className='text-md font-medium'>₹{user.price}</div>
+              <div className='text-md font-medium'>{user.price > 0 ? `₹${user.price}` : 'Free'}</div>
               <Button
                 text='Book Now'
                 className='w-40'
@@ -187,7 +192,7 @@ export default function PublicUser({ errorCode, user }) {
               </div>
             </div>
             <div className='fixed bg-white xs:max-w-[22rem] mx-auto inset-x-0 bottom-0 w-full flex items-center justify-between px-4 my-2 h-14'>
-              <div className='text-md font-medium'>₹{user.price}</div>
+              <div className='text-md font-medium'>{user.price > 0 ? `₹${user.price}` : 'Free'}</div>
               <Button
                 text='Next'
                 className='w-40'
@@ -260,10 +265,10 @@ export default function PublicUser({ errorCode, user }) {
                     />
                   </div>
                   <div className='fixed bg-white xs:max-w-[22rem] mx-auto inset-x-0 bottom-0 w-full flex items-center justify-between px-4 my-2 h-14'>
-                    <div className='text-md font-medium'>₹{user.price}</div>
+                    <div className='text-md font-medium'>{user.price > 0 ? `₹${user.price}` : 'Free'}</div>
                     <Button
                       type='submit'
-                      text='Next'
+                      text={user.price > 0 ? 'Next' : 'Submit'}
                       className='w-40'
                       disabled={Object.keys(errors).length}
                       loading={isOrderCreating}
@@ -287,7 +292,7 @@ export default function PublicUser({ errorCode, user }) {
               </div>
             </div>
             <div className='fixed bg-white xs:max-w-[22rem] mx-auto inset-x-0 bottom-0 w-full flex items-center justify-between px-4 my-2 h-14'>
-              <div className='text-md font-medium'>₹{user.price}</div>
+              <div className='text-md font-medium'>{user.price > 0 ? `₹${user.price}` : 'Free'}</div>
               <Button
                 text='Pay'
                 className='w-40'

@@ -61,7 +61,7 @@ export default function MeetingPage({ meeting: { id, personName, personEmail, me
               null
           }
           <div className='font-medium text-sm mt-4'>Amount</div>
-          <div className='text-sm mt-1'>₹{amount}</div>
+          <div className='text-sm mt-1'>{amount > 0 ? `₹${amount}` : 'Free'}</div>
           <div className='font-medium text-sm mt-4'>Your details</div>
           <div className='text-sm mt-1'>{personName}</div>
           <div className='text-sm mt-1'>{personEmail}</div>

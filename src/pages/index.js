@@ -43,7 +43,7 @@ function Upcoming() {
               <div className='flex items-center justify-between px-6 py-4 border-b border-gray-300'>
                 <div className='font-medium'>{meetDateDisplay}</div>
                 <div className='font-medium'>{meetTimeDisplay}</div>
-                <div className='font-medium'>₹{amount}</div>
+                <div className='font-medium'>{amount > 0 ? `₹${amount}` : 'Free'}</div>
               </div>
               <div className='px-6 py-4'>
                 <div className='text-lg font-semibold'>{personName} <span className='text-gray-500 font-normal ml-4'>(30 min)</span></div>
@@ -94,7 +94,7 @@ function Past() {
               <div className='flex items-center justify-between px-6 py-4 border-b border-gray-300'>
                 <div className='font-medium'>{meetDateDisplay}</div>
                 <div className='font-medium'>{meetTimeDisplay}</div>
-                <div className='font-medium'>₹{amount}</div>
+                <div className='font-medium'>{amount > 0 ? `₹${amount}` : 'Free'}</div>
               </div>
               <div className='px-6 py-4'>
                 <div className='text-lg font-semibold'>{personName} <span className='text-gray-500 font-normal ml-4'>(30 min)</span></div>

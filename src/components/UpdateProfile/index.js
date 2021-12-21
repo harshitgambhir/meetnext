@@ -18,7 +18,7 @@ const validationSchema = Yup.object({
     )
     .required(''),
   about: Yup.string().min(1, '').max(150, '').required(''),
-  price: Yup.number().min(1, 'Price must be between ₹1 to ₹1000 only').max(1000, 'Price must be between ₹1 to ₹1000 only').required(''),
+  price: Yup.number().min(0, 'Price must be between ₹0 to ₹1000 only').max(1000, 'Price must be between ₹0 to ₹1000 only').required(''),
 })
 
 const UpdateProfile = ({ title, onDone, user }) => {
@@ -53,7 +53,7 @@ const UpdateProfile = ({ title, onDone, user }) => {
     <div className='items-end justify-center text-center px-4 py-8'>
       <div className='text-left max-w-md w-full mx-auto'>
         <Formik
-          initialValues={{ avatar: user.avatar || '', fileAvatar: '', name: user.name || '', username: user.username || '', about: user.about || '', price: user.price || '' }}
+          initialValues={{ avatar: user.avatar || '', fileAvatar: '', name: user.name || '', username: user.username || '', about: user.about || '', price: user.price || 0 }}
           validationSchema={validationSchema}
           onSubmit={handleSubmit}
           validateOnMount
@@ -159,6 +159,7 @@ const UpdateProfile = ({ title, onDone, user }) => {
                           className='mt-6'
                           error={errors.price}
                         />
+                        <div className='text-[13px] mt-1 text-gray-700'>Enter 0 to host free meetings.</div>
                       </div>
                     </div>
                   </div>
